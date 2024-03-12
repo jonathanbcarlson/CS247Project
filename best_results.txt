@@ -1,0 +1,9 @@
+user_cold_start_llm_rating_greater_than_2.txt with RMSE 1.0186191713334658, MAE: 0.8140957707283373
+user_cold_start_random_selection_GAN_loss.txt with RMSE 1.0216338670194636, MAE: 0.8201146528196481
+user_cold_start_no_GAN_loss.txt with RMSE 1.0235729760404475, MAE: 0.8210736376513071
+user_cold_start_llm.txt with RMSE 1.0244413596906132, MAE: 0.8138683945330055
+user_cold_start_with_random_selection_between_1_half_and_4_half_gan.txt with RMSE 1.0248740015278974, MAE: 0.827204017952372
+user_cold_start_gan_dcn_greater_than_2_half.txt with RMSE 1.0285714525218197, MAE: 0.8220802847928917
+user_cold_start_with_lower_range_random_gan_data.txt with RMSE 1.0377299575367902, MAE: 0.8370621438474237
+user_cold_start_with_random_selection_between_1_half_and_4_half_500_movies_gan.txt with RMSE 1.0395146872758811, MAE: 0.8399784429331757
+user_cold_start_GAN_loss.txt with RMSE 1.1220144425213907, MAE: 0.9180908892561614
