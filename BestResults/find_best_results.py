@@ -1,6 +1,7 @@
 import heapq
 from os import listdir
 from os.path import isfile, join
+import matplotlib
 import matplotlib.pyplot as plt
 
 path = "../Results"
@@ -13,14 +14,10 @@ def parse_result(filename):
     lines = contents.split("\n")
     # format is: metric = value
     # rmse, mse, mae
-    rmse = lines[0].split("=")[1][1:]
-    mae = lines[2].split("=")[1][1:]
     # string is formatted as python list
-    rmse = eval(rmse)
-    mae = eval(mae)
-    min_rmse = min(rmse)
-    min_mae = min(mae)
-    return min_rmse, min_mae, rmse, mae
+    rmse = eval(lines[0].split("=")[1][1:])
+    mae = eval(lines[2].split("=")[1][1:])
+    return min(rmse), min(mae), rmse, mae
 
 
 # smallest_rmse, smallest_mae, smallest_result = -1, -1, ""
@@ -36,24 +33,15 @@ sorted_results = [heapq.heappop(results) for _ in range(len(results))]
 num_epochs = len(mae)
 rmse_results = [result[3] for result in sorted_results[:3]]
 mae_results = [result[4] for result in sorted_results[:3]]
-labels = ["LLMRec", "ColdGAN", "Base AttributeGNN"]
+labels = ["AGNN-LLMRec", "AGNN-ColdGAN", "AGNN"]
 for i, rmse in enumerate(rmse_results):
     plt.plot(range(1, num_epochs+1), rmse, label=labels[i])
 plt.xlabel("Epoch")
 plt.ylabel("RMSE")
-plt.title("RMSE of base AttributeGNN vs augmented with ColdGAN or LLMRec data")
+plt.title("RMSE of AttributeGNN, AGNN-ColdGAN, AGNN-LLMRec")
 plt.legend()
 # integer x label: https://stackoverflow.com/a/52229882/14842908
 plt.xticks(range(1, num_epochs+1))
+# increase resolution of figure: https://stackoverflow.com/a/51955985/14842908
+matplotlib.rcParams['figure.dpi'] = 600
 plt.savefig("best_rmse_results.png")
-plt.show()
-
-for i, mae in enumerate(mae_results):
-    plt.plot(range(1, num_epochs+1), mae, label=labels[i])
-plt.xlabel("Epoch")
-plt.ylabel("MAE")
-plt.title("MAE of base AttributeGNN vs augmented with ColdGAN or LLMRec data")
-plt.xticks(range(1, num_epochs+1))
-plt.legend()
-plt.savefig("best_mae_results.png")
-plt.show()
